@@ -2,7 +2,6 @@
 import { dim, green } from 'chalk';
 import { generateSpecAndRoutes, generateRoutes } from '@tsoa/cli';
 import { Timer } from './utils/timer';
-import { tmpdir } from 'node:os';
 
 const spec = async () => {
   const result = await generateSpecAndRoutes({
@@ -115,53 +114,6 @@ const log = async <T>(label: string, fn: () => Promise<T>) => {
         middleware: 'express',
         routesDir: './fixtures/express-root-security',
         rootSecurity: [{ api_key: [] }],
-      }),
-    ),
-    log('Koa Route Generation', () =>
-      generateRoutes({
-        noImplicitAdditionalProperties: 'silently-remove-extras',
-        bodyCoercion: true,
-        authenticationModule: './fixtures/koa/authentication.ts',
-        basePath: '/v1',
-        entryFile: './fixtures/koa/server.ts',
-        middleware: 'koa',
-        routesDir: './fixtures/koa',
-      }),
-    ),
-
-    log('Koa Route Generation (with multerOpts)', () =>
-      generateRoutes({
-        noImplicitAdditionalProperties: 'silently-remove-extras',
-        bodyCoercion: true,
-        basePath: '/v1',
-        entryFile: './fixtures/koa-multer-options/server.ts',
-        middleware: 'koa',
-        routesDir: './fixtures/koa-multer-options',
-        multerOpts: {
-          dest: tmpdir(),
-        },
-      }),
-    ),
-    log('Koa Route Generation (but noImplicitAdditionalProperties is set to "throw-on-extras")', () =>
-      generateRoutes({
-        noImplicitAdditionalProperties: 'throw-on-extras',
-        bodyCoercion: true,
-        authenticationModule: './fixtures/koaNoAdditional/authentication.ts',
-        basePath: '/v1',
-        entryFile: './fixtures/koaNoAdditional/server.ts',
-        middleware: 'koa',
-        routesDir: './fixtures/koaNoAdditional',
-      }),
-    ),
-    log('Hapi Route Generation', () =>
-      generateRoutes({
-        noImplicitAdditionalProperties: 'silently-remove-extras',
-        bodyCoercion: true,
-        authenticationModule: './fixtures/hapi/authentication.ts',
-        basePath: '/v1',
-        entryFile: './fixtures/hapi/server.ts',
-        middleware: 'hapi',
-        routesDir: './fixtures/hapi',
       }),
     ),
     log('Custom Route Generation', () =>

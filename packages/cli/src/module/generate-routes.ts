@@ -39,7 +39,7 @@ export async function generateRoutes<Config extends ExtendedRoutesConfig>(
 }
 
 async function getRouteGenerator<Config extends ExtendedRoutesConfig>(metadata: Tsoa.Metadata, routesConfig: Config) {
-  // default route generator for express/koa/hapi
+  // default route generator for express
   // custom route generator
   const routeGenerator = routesConfig.routeGenerator;
   if (routeGenerator !== undefined) {

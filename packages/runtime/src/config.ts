@@ -246,7 +246,7 @@ export interface RoutesConfig {
   /**
    * Middleware provider.
    */
-  middleware?: 'express' | 'hapi' | 'koa';
+  middleware?: 'express';
 
   /**
    * Override the Middleware template
@@ -259,7 +259,7 @@ export interface RoutesConfig {
   iocModule?: string;
 
   /**
-   * Authentication Module for express, hapi and koa
+   * Authentication Module for express
    */
   authenticationModule?: string;
 
