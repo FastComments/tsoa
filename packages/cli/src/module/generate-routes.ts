@@ -1,11 +1,11 @@
 import * as ts from 'typescript';
 import { ExtendedRoutesConfig, RouteGeneratorModule } from '../cli';
 import { MetadataGenerator } from '../metadataGeneration/metadataGenerator';
-import { Tsoa } from '@tsoa/runtime';
+import { Tsoa } from '@fastcomments/tsoa-runtime';
 import { DefaultRouteGenerator } from '../routeGeneration/defaultRouteGenerator';
 import { fsMkDir } from '../utils/fs';
 import path = require('path');
-import { Config as BaseConfig } from '@tsoa/runtime';
+import { Config as BaseConfig } from '@fastcomments/tsoa-runtime';
 
 export async function generateRoutes<Config extends ExtendedRoutesConfig>(
   routesConfig: Config,

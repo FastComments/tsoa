@@ -1,2 +1,2 @@
-export * from '@tsoa/runtime';
-export * from '@tsoa/cli';
+export * from '@fastcomments/tsoa-runtime';
+export * from '@fastcomments/tsoa-cli';

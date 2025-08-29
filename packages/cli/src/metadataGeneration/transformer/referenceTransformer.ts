@@ -1,5 +1,5 @@
 import type { TypeAliasDeclaration, Type } from 'typescript';
-import { Tsoa } from '@tsoa/runtime';
+import { Tsoa } from '@fastcomments/tsoa-runtime';
 
 import { Transformer } from './transformer';
 import { EnumTransformer } from './enumTransformer';
