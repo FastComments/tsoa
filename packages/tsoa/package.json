@@ -1,7 +1,7 @@
 {
   "name": "@fastcomments/tsoa",
   "description": "FastComments fork of TSOA - Express-only, optimized OpenAPI-compliant REST APIs using TypeScript and Node",
-  "version": "6.6.1",
+  "version": "6.6.2",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "files": [
@@ -26,8 +26,8 @@
   "author": "Luke Autry <lukeautry@gmail.com> (http://www.lukeautry.com)",
   "license": "MIT",
   "dependencies": {
-    "@fastcomments/tsoa-cli": "^6.6.1",
-    "@fastcomments/tsoa-runtime": "^6.6.1"
+    "@fastcomments/tsoa-cli": "^6.6.2",
+    "@fastcomments/tsoa-runtime": "^6.6.2"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
