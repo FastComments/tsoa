@@ -1,7 +1,7 @@
 {
   "name": "@fastcomments/tsoa-cli",
   "description": "CLI for @fastcomments/tsoa - Express-only OpenAPI-compliant REST APIs",
-  "version": "6.6.4",
+  "version": "6.6.5",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "files": [
@@ -28,7 +28,7 @@
   "author": "Luke Autry <lukeautry@gmail.com> (http://www.lukeautry.com)",
   "license": "MIT",
   "dependencies": {
-    "@fastcomments/tsoa-runtime": "^6.6.4",
+    "@fastcomments/tsoa-runtime": "^6.6.5",
     "@types/multer": "^1.4.12",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10",
