@@ -1,6 +1,6 @@
 {
-  "name": "tsoa",
-  "description": "Build swagger-compliant REST APIs using TypeScript and Node",
+  "name": "@fastcomments/tsoa",
+  "description": "FastComments fork of TSOA - Express-only, optimized OpenAPI-compliant REST APIs using TypeScript and Node",
   "version": "6.6.1",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -26,8 +26,8 @@
   "author": "Luke Autry <lukeautry@gmail.com> (http://www.lukeautry.com)",
   "license": "MIT",
   "dependencies": {
-    "@tsoa/cli": "^6.6.1",
-    "@tsoa/runtime": "^6.6.1"
+    "@fastcomments/tsoa-cli": "^6.6.1",
+    "@fastcomments/tsoa-runtime": "^6.6.1"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukeautry/tsoa.git"
+    "url": "https://github.com/fastcomments/tsoa.git"
   },
   "bin": {
     "tsoa": "dist/cli.js"

@@ -1,15 +1,24 @@
 <div align="center">
-  <a href="https://tsoa-community.github.io/docs/" target="blank">
-    <h1>tsoa</h1>
-  </a>
-Pronounced so·uh
+  <h1>@fastcomments/tsoa</h1>
+  
+**FastComments Fork of TSOA**
 
-OpenAPI-compliant REST APIs using TypeScript and Node
+Express-only, optimized OpenAPI-compliant REST APIs using TypeScript and Node
 
-![build status](https://github.com/lukeautry/tsoa/actions/workflows/runTestsOnPush.yml/badge.svg)
-[![npm version](https://img.shields.io/npm/v/tsoa/latest)](https://www.npmjs.com/package/tsoa)
+[![npm version](https://img.shields.io/npm/v/@fastcomments/tsoa/latest)](https://www.npmjs.com/package/@fastcomments/tsoa)
 
 </div>
+
+## About This Fork
+
+This is a FastComments maintained fork of the original [TSOA](https://github.com/lukeautry/tsoa) project. This fork includes:
+
+- **Express-only support** - Removed Koa, Hapi and other framework dependencies for a lighter package
+- **Performance optimizations** - Various improvements for better runtime performance
+- **Bug fixes** - Additional fixes not yet in upstream
+- **Reduced dependencies** - Cleaner dependency tree focused on Express ecosystem
+
+The original TSOA documentation largely applies, but note that only Express is supported as a framework.
 
 ## Goal
 
@@ -19,8 +28,7 @@ OpenAPI-compliant REST APIs using TypeScript and Node
   - Definitions based on TypeScript interfaces (models)
   - Parameters/model properties marked as required or optional based on TypeScript (e.g. myProperty?: string is optional in the OpenAPI spec)
   - jsDoc supported for object descriptions (most other metadata can be inferred from TypeScript types)
-- Routes are generated for middleware of choice
-  - Express, Hapi, and Koa currently supported, other middleware can be supported using a simple handlebars template
+- Routes are generated for Express middleware
   - Validate request payloads
 
 ## Philosophy

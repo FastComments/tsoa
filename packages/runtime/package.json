@@ -1,6 +1,6 @@
 {
-  "name": "@tsoa/runtime",
-  "description": "Build swagger-compliant REST APIs using TypeScript and Node",
+  "name": "@fastcomments/tsoa-runtime",
+  "description": "Runtime for @fastcomments/tsoa - Express-only OpenAPI-compliant REST APIs",
   "version": "6.6.1",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -38,7 +38,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukeautry/tsoa.git"
+    "url": "https://github.com/fastcomments/tsoa.git"
   },
   "engines": {
     "yarn": ">=1.9.4",
