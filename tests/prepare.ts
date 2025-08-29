@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { dim, green } from 'chalk';
-import { generateSpecAndRoutes, generateRoutes } from '@tsoa/cli';
+import { generateSpecAndRoutes, generateRoutes } from '@fastcomments/tsoa-cli';
 import { Timer } from './utils/timer';
 
 const spec = async () => {

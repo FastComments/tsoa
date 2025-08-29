@@ -1,4 +1,4 @@
-import { Controller, Middlewares as GenericMiddlewares, Get, Route } from '@tsoa/runtime';
+import { Controller, Middlewares as GenericMiddlewares, Get, Route } from '@fastcomments/tsoa-runtime';
 
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 

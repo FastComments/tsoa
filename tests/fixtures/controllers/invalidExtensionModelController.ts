@@ -1,4 +1,4 @@
-import { Get, Route } from '@tsoa/runtime';
+import { Get, Route } from '@fastcomments/tsoa-runtime';
 
 interface InvalidExtension {
   /**

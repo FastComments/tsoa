@@ -1,6 +1,6 @@
 import 'mocha';
-import { MetadataGenerator } from '@tsoa/cli/metadataGeneration/metadataGenerator';
-import { SpecGenerator2 } from '@tsoa/cli/swagger/specGenerator2';
+import { MetadataGenerator } from '@fastcomments/tsoa-cli/metadataGeneration/metadataGenerator';
+import { SpecGenerator2 } from '@fastcomments/tsoa-cli/swagger/specGenerator2';
 import { getDefaultExtendedOptions } from 'fixtures/defaultOptions';
 import { VerifyPath } from 'unit/utilities/verifyPath';
 
