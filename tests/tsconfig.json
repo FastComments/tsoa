@@ -15,8 +15,8 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
-      "@tsoa/cli/*": ["../packages/cli/src/*"],
-      "@tsoa/runtime/*": ["../packages/runtime/src/*"]
+      "@fastcomments/tsoa-cli/*": ["../packages/cli/src/*"],
+      "@fastcomments/tsoa-runtime/*": ["../packages/runtime/src/*"]
     }
   },
   "references": [{ "path": "../packages/runtime" }, { "path": "../packages/cli" }],
