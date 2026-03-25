@@ -491,7 +491,7 @@ export class SpecGenerator2 extends SpecGenerator {
     return { $ref: `#/definitions/${encodeURIComponent(referenceType.refName)}` };
   }
 
-  private decideEnumType(anEnum: Array<string | number>, nameOfEnum: string): 'string' | 'number' {
+  private decideEnumType(anEnum: Array<string | number>, nameOfEnum: string): 'string' | 'number' | 'integer' {
     const typesUsedInEnum = this.determineTypesUsedInEnum(anEnum);
 
     const badEnumErrorMessage = () => {
@@ -499,9 +499,11 @@ export class SpecGenerator2 extends SpecGenerator {
       return `Enums can only have string or number values, but enum ${nameOfEnum} had ${valuesDelimited}`;
     };
 
-    let enumTypeForSwagger: 'string' | 'number';
+    let enumTypeForSwagger: 'string' | 'number' | 'integer';
     if (typesUsedInEnum.has('string') && typesUsedInEnum.size === 1) {
       enumTypeForSwagger = 'string';
+    } else if (typesUsedInEnum.has('integer') && typesUsedInEnum.size === 1) {
+      enumTypeForSwagger = 'integer';
     } else if (typesUsedInEnum.has('number') && typesUsedInEnum.size === 1) {
       enumTypeForSwagger = 'number';
     } else {

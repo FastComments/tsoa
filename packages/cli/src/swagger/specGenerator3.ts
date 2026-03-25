@@ -180,7 +180,7 @@ export class SpecGenerator3 extends SpecGenerator {
           schema[referenceType.refName] = {
             description: referenceType.description,
             enum: referenceType.enums,
-            type: enumTypes.has('string') ? 'string' : 'number',
+            type: enumTypes.values().next().value,
           };
           if (this.config.xEnumVarnames && referenceType.enumVarnames !== undefined && referenceType.enums.length === referenceType.enumVarnames.length) {
             schema[referenceType.refName]['x-enum-varnames'] = referenceType.enumVarnames;
@@ -190,7 +190,7 @@ export class SpecGenerator3 extends SpecGenerator {
             description: referenceType.description,
             anyOf: [
               {
-                type: 'number',
+                type: referenceType.enums.filter(e => typeof e === 'number').every(e => Number.isInteger(e)) ? 'integer' : 'number',
                 enum: referenceType.enums.filter(e => typeof e === 'number'),
               },
               {

@@ -196,11 +196,17 @@ export abstract class SpecGenerator {
   }
 
   protected determineTypesUsedInEnum(anEnum: Array<string | number | boolean | null>) {
+    const allNumbersAreIntegers = anEnum.every(v => typeof v !== 'number' || Number.isInteger(v));
     const typesUsedInEnum = anEnum.reduce((theSet, curr) => {
-      const typeUsed = curr === null ? 'number' : (typeof curr as 'string' | 'number' | 'boolean');
+      let typeUsed: 'string' | 'number' | 'boolean' | 'integer';
+      if (curr === null || typeof curr === 'number') {
+        typeUsed = allNumbersAreIntegers ? 'integer' : 'number';
+      } else {
+        typeUsed = typeof curr as 'string' | 'boolean';
+      }
       theSet.add(typeUsed);
       return theSet;
-    }, new Set<'string' | 'number' | 'boolean'>());
+    }, new Set<'string' | 'number' | 'boolean' | 'integer'>());
 
     return typesUsedInEnum;
   }
