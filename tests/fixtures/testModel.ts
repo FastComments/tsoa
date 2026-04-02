@@ -88,6 +88,7 @@ export interface TestModel extends Model {
   stringRecord?: Record<string, { data: string }>;
   numberRecord?: Record<number, { data: string }>;
   emptyRecord?: Record<string, never>;
+  nullablePropsRecord?: Record<string, { before: string | null, after: string | null }>;
   // modelsObjectDirect?: {[key: string]: TestSubModel2;};
   modelsObjectIndirect?: TestSubModelContainer;
   modelsObjectIndirectNS?: TestSubModelContainerNamespace.TestSubModelContainer;

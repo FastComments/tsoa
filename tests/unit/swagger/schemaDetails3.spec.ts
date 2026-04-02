@@ -1746,6 +1746,40 @@ describe('Definition generation for OpenAPI 3.0.0', () => {
               type: 'object',
             });
           },
+          nullablePropsRecord: (propertyName, propertySchema) => {
+            expect(propertySchema.$ref).to.eq('#/components/schemas/Record_string._before-string-or-null--after-string-or-null__');
+            const schema = getComponentSchema('Record_string._before-string-or-null--after-string-or-null__', currentSpec);
+            expect(schema).to.be.deep.eq({
+              additionalProperties: {
+                properties: {
+                  before: {
+                    default: undefined,
+                    description: undefined,
+                    example: undefined,
+                    format: undefined,
+                    type: 'string',
+                    nullable: true,
+                  },
+                  after: {
+                    default: undefined,
+                    description: undefined,
+                    example: undefined,
+                    format: undefined,
+                    type: 'string',
+                    nullable: true,
+                  },
+                },
+                required: ['after', 'before'],
+                type: 'object',
+              },
+              default: undefined,
+              description: 'Construct a type with a set of properties K of type T',
+              example: undefined,
+              format: undefined,
+              properties: {},
+              type: 'object',
+            });
+          },
           modelsObjectIndirect: (propertyName, propertySchema) => {
             expect(propertySchema.$ref).to.eq('#/components/schemas/TestSubModelContainer', `for property ${propertyName}.$ref`);
             expect(propertySchema).to.not.haveOwnProperty('additionalProperties', `for property ${propertyName}`);

@@ -19,6 +19,13 @@ import { ReferenceTransformer } from './transformer/referenceTransformer';
 const localReferenceTypeCache: { [typeName: string]: Tsoa.ReferenceType } = {};
 const inProgressTypes: { [typeName: string]: Array<(realType: Tsoa.ReferenceType) => void> } = {};
 
+function typeNodeReferencesIdentifier(node: ts.Node, name: string): boolean {
+  if (ts.isIdentifier(node) && node.text === name) {
+    return true;
+  }
+  return ts.forEachChild(node, child => typeNodeReferencesIdentifier(child, name)) || false;
+}
+
 type UsableDeclaration = ts.InterfaceDeclaration | ts.ClassDeclaration | ts.PropertySignature | ts.TypeAliasDeclaration | ts.EnumMember;
 type UsableDeclarationWithoutPropertySignature = Exclude<UsableDeclaration, ts.PropertySignature>;
 interface Context {
@@ -189,16 +196,34 @@ export class TypeResolver {
           };
         } else if (this.hasFlag(type, ts.TypeFlags.Object)) {
           const typeProperties: ts.Symbol[] = type.getProperties();
+
+          // When the mapped type's template doesn't reference its own iterator parameter
+          // (e.g. Record<K, T>'s template is just T, not T[P]), we can resolve the template
+          // directly through context. This preserves nullable types like `string | null`
+          // that the type checker strips when strictNullChecks is off.
+          const templateType = mappedTypeNode.type;
+          const canResolveTemplateDirectly = templateType
+            && !typeNodeReferencesIdentifier(templateType, mappedTypeNode.typeParameter.name.text);
+
           const properties: Tsoa.Property[] = typeProperties
             // Ignore methods, getter, setter and @ignored props
             .filter(property => isIgnored(property) === false)
             // Transform to property
             .map(property => {
+              const parent = getOneOrigDeclaration(property);
               const propertyType = this.current.typeChecker.getTypeOfSymbolAtLocation(property, this.typeNode);
-
               const typeNode = this.current.typeChecker.typeToTypeNode(propertyType, undefined, ts.NodeBuilderFlags.NoTruncation)!;
-              const parent = getOneOrigDeclaration(property); //If there are more declarations, we need to get one of them, from where we want to recognize jsDoc
-              const type = new TypeResolver(typeNode, this.current, parent, this.context, propertyType).resolve();
+
+              let type: Tsoa.Type;
+              if (canResolveTemplateDirectly) {
+                try {
+                  type = new TypeResolver(templateType!, this.current, mappedTypeNode, this.context).resolve();
+                } catch {
+                  type = new TypeResolver(typeNode, this.current, parent, this.context, propertyType).resolve();
+                }
+              } else {
+                type = new TypeResolver(typeNode, this.current, parent, this.context, propertyType).resolve();
+              }
 
               const required = !this.hasFlag(property, ts.SymbolFlags.Optional);
 
@@ -236,6 +261,14 @@ export class TypeResolver {
             if (typeNode.kind === ts.SyntaxKind.NeverKeyword) {
               // { [k: string]: never; }
               return [];
+            }
+            if (canResolveTemplateDirectly) {
+              try {
+                const type = new TypeResolver(templateType!, this.current, mappedTypeNode, this.context).resolve();
+                return [type];
+              } catch {
+                // Fall through to default resolution
+              }
             }
             const type = new TypeResolver(typeNode, this.current, mappedTypeNode, this.context, indexInfo.type).resolve();
             return [type];

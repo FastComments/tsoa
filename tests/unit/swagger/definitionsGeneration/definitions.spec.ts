@@ -684,6 +684,40 @@ describe('Definition generation', () => {
               type: 'object',
             });
           },
+          nullablePropsRecord: (propertyName, propertySchema) => {
+            expect(propertySchema.$ref).to.eq('#/definitions/Record_string._before-string-or-null--after-string-or-null__');
+            const schema = getValidatedDefinition('Record_string._before-string-or-null--after-string-or-null__', currentSpec);
+            expect(schema).to.be.deep.eq({
+              additionalProperties: {
+                properties: {
+                  before: {
+                    default: undefined,
+                    description: undefined,
+                    example: undefined,
+                    format: undefined,
+                    type: 'string',
+                    'x-nullable': true,
+                  },
+                  after: {
+                    default: undefined,
+                    description: undefined,
+                    example: undefined,
+                    format: undefined,
+                    type: 'string',
+                    'x-nullable': true,
+                  },
+                },
+                required: ['after', 'before'],
+                type: 'object',
+              },
+              default: undefined,
+              description: 'Construct a type with a set of properties K of type T',
+              example: undefined,
+              format: undefined,
+              properties: {},
+              type: 'object',
+            });
+          },
           modelsObjectIndirect: (propertyName, propertySchema) => {
             expect(propertySchema.$ref).to.eq('#/definitions/TestSubModelContainer', `for property ${propertyName}.$ref`);
             expect(propertySchema).to.not.haveOwnProperty('additionalProperties', `for property ${propertyName}`);
