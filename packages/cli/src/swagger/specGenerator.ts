@@ -38,6 +38,51 @@ export abstract class SpecGenerator {
     }
   }
 
+  /**
+   * For each success response whose schema is a union that includes a configured error type
+   * (config.errorResponseTypeNames, e.g. ["APIError"]), keep the success member(s) as the response
+   * schema and split the error member(s) out into a `default` error response. This keeps the 2xx
+   * response as the real success type instead of an `X | APIError` wrapper, so SDK generators don't
+   * synthesize (and collide on) per-operation wrapper models.
+   */
+  protected splitErrorResponses(method: Tsoa.Method): Tsoa.Response[] {
+    const errorTypeNames = this.config.errorResponseTypeNames;
+    if (!errorTypeNames || errorTypeNames.length === 0) {
+      return method.responses;
+    }
+
+    const isErrorRef = (t: Tsoa.Type): boolean => (t.dataType === 'refObject' || t.dataType === 'refAlias' || t.dataType === 'refEnum') && errorTypeNames.includes(t.refName);
+
+    const result: Tsoa.Response[] = [];
+    let defaultAdded = method.responses.some(r => r.name === 'default');
+
+    for (const res of method.responses) {
+      const schema = res.schema;
+      if (schema && schema.dataType === 'union') {
+        const errorMembers = schema.types.filter(isErrorRef);
+        const successMembers = schema.types.filter(t => !isErrorRef(t));
+        if (errorMembers.length > 0 && successMembers.length > 0) {
+          result.push({
+            ...res,
+            schema: successMembers.length === 1 ? successMembers[0] : { ...schema, types: successMembers },
+          });
+          if (!defaultAdded) {
+            result.push({
+              name: 'default',
+              description: 'Error',
+              schema: errorMembers.length === 1 ? errorMembers[0] : { ...schema, types: errorMembers },
+            });
+            defaultAdded = true;
+          }
+          continue;
+        }
+      }
+      result.push(res);
+    }
+
+    return result;
+  }
+
   protected buildAdditionalProperties(type: Tsoa.Type) {
     return this.getSwaggerType(type);
   }

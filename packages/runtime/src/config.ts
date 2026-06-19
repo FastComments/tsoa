@@ -216,6 +216,15 @@ export interface SpecConfig {
   useTitleTagsForInlineObjects?: boolean;
 
   /**
+   * Reference type names (e.g. ["APIError"]) that represent error responses. When a method's success
+   * response type is a union that includes one of these, the matching member(s) are emitted as a
+   * `default` error response instead of being merged into the 2xx schema. This keeps the success
+   * response as the real success type (so SDK generators don't synthesize `X | APIError` wrapper
+   * models), and documents errors separately. Defaults to none (no splitting).
+   */
+  errorResponseTypeNames?: string[];
+
+  /**
    * Applies a default security to the entire API.
    * Can be overridden with @Security or @NoSecurity decorators on controllers or methods
    */
