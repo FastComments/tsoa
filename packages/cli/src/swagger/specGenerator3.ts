@@ -28,6 +28,7 @@ export class SpecGenerator3 extends SpecGenerator {
   }
 
   public GetSpec() {
+    this.checkForDuplicateOperationIds();
     let spec: Swagger.Spec3 = {
       openapi: '3.0.0',
       components: this.buildComponents(),
@@ -332,7 +333,7 @@ export class SpecGenerator3 extends SpecGenerator {
   protected buildOperation(controllerName: string, method: Tsoa.Method, defaultProduces?: string[]): Swagger.Operation3 {
     const swaggerResponses: { [name: string]: Swagger.Response3 } = {};
 
-    method.responses.forEach((res: Tsoa.Response) => {
+    this.splitErrorResponses(method).forEach((res: Tsoa.Response) => {
       swaggerResponses[res.name] = {
         description: res.description,
       };

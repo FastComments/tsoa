@@ -19,6 +19,7 @@ export class SpecGenerator2 extends SpecGenerator {
   }
 
   public GetSpec() {
+    this.checkForDuplicateOperationIds();
     let spec: Swagger.Spec2 = {
       basePath: normalisePath(this.config.basePath as string, '/', undefined, false),
       consumes: [DEFAULT_REQUEST_MEDIA_TYPE],
@@ -219,7 +220,7 @@ export class SpecGenerator2 extends SpecGenerator {
     const swaggerResponses: { [name: string]: Swagger.Response } = {};
 
     let produces: Array<string | undefined> = [];
-    method.responses.forEach((res: Tsoa.Response) => {
+    this.splitErrorResponses(method).forEach((res: Tsoa.Response) => {
       swaggerResponses[res.name] = {
         description: res.description,
       };
