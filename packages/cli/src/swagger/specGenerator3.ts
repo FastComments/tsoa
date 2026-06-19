@@ -28,6 +28,7 @@ export class SpecGenerator3 extends SpecGenerator {
   }
 
   public GetSpec() {
+    this.checkForDuplicateOperationIds();
     let spec: Swagger.Spec3 = {
       openapi: '3.0.0',
       components: this.buildComponents(),

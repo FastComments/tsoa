@@ -19,6 +19,7 @@ export class SpecGenerator2 extends SpecGenerator {
   }
 
   public GetSpec() {
+    this.checkForDuplicateOperationIds();
     let spec: Swagger.Spec2 = {
       basePath: normalisePath(this.config.basePath as string, '/', undefined, false),
       consumes: [DEFAULT_REQUEST_MEDIA_TYPE],
