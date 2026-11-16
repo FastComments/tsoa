@@ -256,10 +256,12 @@ export abstract class SpecGenerator {
       float: { type: 'number', format: 'float' },
       integer: { type: 'integer', format: 'int32' },
       long: { type: 'integer', format: 'int64' },
-      object: {
-        additionalProperties: this.determineImplicitAdditionalPropertiesValue(),
-        type: 'object',
-      },
+      object: this.config.omitImplicitAdditionalProperties
+        ? { type: 'object' }
+        : {
+            additionalProperties: this.determineImplicitAdditionalPropertiesValue(),
+            type: 'object',
+          },
       string: { type: 'string' },
     };
 

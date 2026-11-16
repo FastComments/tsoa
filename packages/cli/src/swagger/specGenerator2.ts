@@ -99,7 +99,7 @@ export class SpecGenerator2 extends SpecGenerator {
 
         if (referenceType.additionalProperties) {
           definitions[referenceType.refName].additionalProperties = this.buildAdditionalProperties(referenceType.additionalProperties);
-        } else {
+        } else if (!this.config.omitImplicitAdditionalProperties) {
           // Since additionalProperties was not explicitly set in the TypeScript interface for this model
           //      ...we need to make a decision
           definitions[referenceType.refName].additionalProperties = this.determineImplicitAdditionalPropertiesValue();
