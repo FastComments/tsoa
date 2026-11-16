@@ -225,6 +225,14 @@ export interface SpecConfig {
   errorResponseTypeNames?: string[];
 
   /**
+   * Leave `additionalProperties` out of the spec for types with no index signature, instead of writing the
+   * `false` that noImplicitAdditionalProperties "throw-on-extras" / "silently-remove-extras" imply. Request
+   * validation still rejects or strips extras at runtime; the spec just stops promising that responses will never
+   * gain fields, so generated clients that enforce the spec don't break when one is added. Defaults to false.
+   */
+  omitImplicitAdditionalProperties?: boolean;
+
+  /**
    * Applies a default security to the entire API.
    * Can be overridden with @Security or @NoSecurity decorators on controllers or methods
    */
